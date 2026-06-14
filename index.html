@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name — Abstract Art</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Canvas texture overlay -->
+  <div class="canvas-bg"></div>
+
+  <!-- ===== LANDING / HERO ===== -->
+  <section id="home" class="page active">
+    <div class="hero-content">
+      <div class="artist-name-block">
+        <h1 class="artist-name">Your Name</h1>
+        <p class="tagline">Abstract Art</p>
+      </div>
+
+      <!-- Nav "buttons" are image placeholders — swap with your art images -->
+      <nav class="image-nav">
+        <button class="nav-card" data-target="gallery" aria-label="Go to Gallery">
+          <img src="images/nav/nav-gallery.png" alt="Gallery" class="nav-img" />
+          <span class="nav-label">Gallery</span>
+        </button>
+        <button class="nav-card" data-target="about" aria-label="Go to About">
+          <img src="images/nav/nav-about.png" alt="About" class="nav-img" />
+          <span class="nav-label">About</span>
+        </button>
+        <button class="nav-card" data-target="commissions" aria-label="Go to Commissions">
+          <img src="images/nav/nav-commissions.png" alt="Commissions" class="nav-img" />
+          <span class="nav-label">Commissions</span>
+        </button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section id="gallery" class="page">
+    <div class="page-inner">
+      <button class="back-btn" data-target="home">← Back</button>
+      <h2 class="page-title">Gallery</h2>
+
+      <div class="gallery-grid">
+        <!-- Drop your art images into images/gallery/ and add more of these -->
+        <div class="gallery-item">
+          <img src="images/gallery/piece-01.png" alt="Artwork 1" />
+          <p class="piece-title">Untitled 01</p>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/piece-02.png" alt="Artwork 2" />
+          <p class="piece-title">Untitled 02</p>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/piece-03.png" alt="Artwork 3" />
+          <p class="piece-title">Untitled 03</p>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/piece-04.png" alt="Artwork 4" />
+          <p class="piece-title">Untitled 04</p>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/piece-05.png" alt="Artwork 5" />
+          <p class="piece-title">Untitled 05</p>
+        </div>
+        <div class="gallery-item">
+          <img src="images/gallery/piece-06.png" alt="Artwork 6" />
+          <p class="piece-title">Untitled 06</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="page">
+    <div class="page-inner about-layout">
+      <button class="back-btn" data-target="home">← Back</button>
+      <h2 class="page-title">About</h2>
+
+      <div class="about-content">
+        <div class="about-img-wrap">
+          <!-- Drop a photo or a piece of yours here -->
+          <img src="images/about/portrait.png" alt="Artist portrait" class="about-img" />
+        </div>
+        <div class="about-text">
+          <p>
+            Hey — I'm [Your Name]. I make abstract work that lives somewhere between
+            emotion and accident. Each piece starts with a feeling and ends
+            wherever the medium decides.
+          </p>
+          <p>
+            I work primarily with [your medium — paint, digital, ink, etc.].
+            Based in [Your City].
+          </p>
+          <p>
+            Every piece is one of a kind. No prints, no copies — just the original.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMMISSIONS / CONTACT ===== -->
+  <section id="commissions" class="page">
+    <div class="page-inner">
+      <button class="back-btn" data-target="home">← Back</button>
+      <h2 class="page-title">Commissions</h2>
+
+      <div class="commissions-content">
+        <div class="commission-info">
+          <p class="commission-intro">
+            Interested in a custom piece? I take on a limited number of commissions
+            — reach out and let's talk about what you're envisioning.
+          </p>
+
+          <ul class="commission-details">
+            <li><span class="detail-label">Turnaround</span> 2–4 weeks depending on size</li>
+            <li><span class="detail-label">Sizes</span> Small to large — ask and we'll figure it out</li>
+            <li><span class="detail-label">Process</span> Deposit upfront, balance on completion</li>
+          </ul>
+        </div>
+
+        <div class="contact-form-wrap">
+          <h3 class="form-heading">Get in touch</h3>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="idea">Tell me about your idea</label>
+            <textarea id="idea" rows="5" placeholder="Size, mood, colors, anything..."></textarea>
+          </div>
+
+          <!-- This btn uses your image as the send button -->
+          <button class="send-btn image-send-btn" id="sendBtn">
+            <img src="images/nav/nav-send.png" alt="" class="send-btn-img" aria-hidden="true" />
+            <span>Send it</span>
+          </button>
+          <p class="form-note" id="formNote" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox for gallery -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+    <img src="" alt="" id="lightboxImg" />
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

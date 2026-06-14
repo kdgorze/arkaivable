@@ -1,0 +1,511 @@
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --ink:        #1a1614;
+  --ink-light:  #4a3f3a;
+  --canvas:     #f5f0e8;
+  --canvas-mid: #ede5d4;
+  --canvas-dark:#d6cab5;
+  --accent:     #2c2c2c;
+  --paper-line: rgba(80, 60, 40, 0.12);
+
+  --font-display: 'Georgia', 'Times New Roman', serif;
+  --font-body:    system-ui, -apple-system, sans-serif;
+  --font-label:   'Courier New', Courier, monospace;
+
+  --radius: 2px;
+  --shadow: 0 2px 12px rgba(26,22,20,0.13);
+  --shadow-lg: 0 6px 32px rgba(26,22,20,0.22);
+
+  --transition: 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--canvas);
+  color: var(--ink);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+
+/* ============================================================
+   CANVAS BACKGROUND — notebook ruled lines + linen grain
+   ============================================================ */
+.canvas-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Horizontal notebook lines */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 27px,
+      var(--paper-line) 27px,
+      var(--paper-line) 28px
+    ),
+    /* Very subtle linen grain via layered noise */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+
+  background-size: 100% 28px, 200px 200px;
+  opacity: 1;
+}
+
+/* Red margin line — classic notebook */
+.canvas-bg::before {
+  content: '';
+  position: fixed;
+  top: 0; bottom: 0;
+  left: clamp(40px, 8vw, 80px);
+  width: 1px;
+  background: rgba(190, 80, 80, 0.25);
+  z-index: 1;
+}
+
+/* ============================================================
+   PAGE SYSTEM
+   ============================================================ */
+.page {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18px);
+  transition: opacity var(--transition), transform var(--transition);
+  overflow-y: auto;
+}
+
+.page.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.page-inner {
+  width: 100%;
+  max-width: 860px;
+  padding-top: 2rem;
+}
+
+/* ============================================================
+   HERO / HOME
+   ============================================================ */
+#home {
+  flex-direction: column;
+  padding-left: clamp(56px, 10vw, 100px); /* clear the margin line */
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+  max-width: 860px;
+}
+
+.artist-name-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.artist-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  font-weight: normal;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.tagline {
+  font-family: var(--font-label);
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  padding-left: 0.15em;
+}
+
+/* ============================================================
+   IMAGE NAV — the "buttons are art" section
+   ============================================================ */
+.image-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 3vw, 1.75rem);
+  list-style: none;
+}
+
+.nav-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: clamp(130px, 28vw, 200px);
+  padding: 0;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  border-radius: var(--radius);
+}
+
+.nav-card:hover,
+.nav-card:focus-visible {
+  transform: translateY(-4px) rotate(-0.8deg);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+}
+
+.nav-card:active {
+  transform: translateY(-1px) rotate(0deg);
+}
+
+.nav-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  /* Fallback when image is missing — shows a canvas-colored placeholder */
+  background: var(--canvas-mid);
+  border: 1px solid var(--canvas-dark);
+}
+
+/* Placeholder style when image hasn't loaded / is missing */
+.nav-img[src$=".png"]:not([complete]),
+.nav-img:-moz-broken {
+  min-height: 180px;
+}
+
+.nav-label {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  padding-left: 0.1em;
+}
+
+/* ============================================================
+   BACK BUTTON
+   ============================================================ */
+.back-btn {
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  padding: 0.4rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s, color 0.18s;
+}
+
+.back-btn:hover { color: var(--ink); border-color: var(--ink-light); }
+
+/* ============================================================
+   PAGE TITLE
+   ============================================================ */
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: normal;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--canvas-dark);
+  padding-bottom: 0.6rem;
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 1.75rem);
+}
+
+.gallery-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.22s ease;
+}
+
+.gallery-item:hover { transform: translateY(-3px); }
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--canvas-mid);
+  border: 1px solid var(--canvas-dark);
+}
+
+.piece-title {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.about-img-wrap { position: relative; }
+
+.about-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  background: var(--canvas-mid);
+  border: 1px solid var(--canvas-dark);
+
+  /* Slight tilt for personality */
+  transform: rotate(-1.2deg);
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.about-text p {
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--ink-light);
+}
+
+@media (max-width: 600px) {
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+  .about-img {
+    max-width: 200px;
+    transform: rotate(-1deg);
+  }
+}
+
+/* ============================================================
+   COMMISSIONS / CONTACT
+   ============================================================ */
+.commissions-content {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.commission-intro {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  line-height: 1.75;
+  color: var(--ink-light);
+  margin-bottom: 1.5rem;
+}
+
+.commission-details {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.commission-details li {
+  font-size: 0.875rem;
+  color: var(--ink-light);
+  border-bottom: 1px solid var(--canvas-dark);
+  padding-bottom: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.detail-label {
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* Form */
+.form-heading {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+
+.form-group input,
+.form-group textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--canvas-mid);
+  border: 1px solid var(--canvas-dark);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.8rem;
+  resize: vertical;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--ink-light);
+  box-shadow: 0 0 0 2px rgba(74,63,58,0.12);
+}
+
+/* Send button — image-led */
+.image-send-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.image-send-btn:hover { transform: translateY(-2px); }
+
+.send-btn-img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--canvas-mid);
+  border: 1px solid var(--canvas-dark);
+}
+
+.image-send-btn span {
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.form-note {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-light);
+  margin-top: 0.6rem;
+  min-height: 1.2em;
+}
+
+@media (max-width: 660px) {
+  .commissions-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(26, 22, 20, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox img {
+  max-width: min(90vw, 800px);
+  max-height: 80dvh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.lightbox-caption {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.6);
+  margin-top: 1rem;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  color: rgba(245,240,232,0.7);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.18s;
+}
+
+.lightbox-close:hover { color: #fff; }
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
