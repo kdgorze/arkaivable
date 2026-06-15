@@ -4,9 +4,9 @@
 :root {
   --ink:        #1a1614;
   --ink-light:  #4a3f3a;
-  --canvas:     #f5f0e8;
-  --canvas-mid: #ede5d4;
-  --canvas-dark:#d6cab5;
+  --canvas:     #e8e0d0;
+  --canvas-mid: #dfd5c0;
+  --canvas-dark:#c8b89a;
   --accent:     #2c2c2c;
   --paper-line: rgba(80, 60, 40, 0.12);
 
@@ -319,9 +319,6 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   }
 }
 
-/* ============================================================
-   COMMISSIONS / CONTACT
-   ============================================================ */
 /* ============================================================
    COMMISSIONS / CONTACT
    ============================================================ */
