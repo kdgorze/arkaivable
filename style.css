@@ -653,20 +653,20 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 /* Middle area */
 .d6  { font-size: clamp(1rem,   2.5vw, 1.6rem); top: 35%; left: 2%;   transform: rotate(6deg);   opacity: 0.8; }
-.d7  { font-size: clamp(2.2rem, 6vw,   4.5rem); top: 41%; left: 38%;  transform: rotate(-5deg);  opacity: 0.5; }
+.d7  { font-size: clamp(2.2rem, 6vw,   4.5rem); top: 41%; left: 38%;  transform: rotate(-5deg);  opacity: 0.8; }
 .d8  { font-size: clamp(1.2rem, 3.5vw, 4em); top: 42%; right: 12%; transform: rotate(8deg);   opacity: 0.75; }
 .d9  { font-size: clamp(1.4rem, 4vw,   2.6rem); top: 50%; left: 8%;   transform: rotate(-13deg); opacity: 0.85; }
 .d10 { font-size: clamp(2rem, 3vw, 4rem); top: 55%; right: 5%;  transform: rotate(3deg);   opacity: 0.65; }
 
 /* Lower-middle */
 .d11 { font-size: clamp(1rem,   2.5vw, 1.6rem); top: 62%; left: 68%;  transform: rotate(-8deg);  opacity: 0.8; }
-.d12 { font-size: clamp(1.8rem, 5vw,   3.5rem); top: 65%; left: 1%;   transform: rotate(5deg);   opacity: 0.55; }
+.d12 { font-size: clamp(1.8rem, 5vw,   3.5rem); top: 65%; left: 1%;   transform: rotate(5deg);   opacity: 0.8; }
 .d13 { font-size: clamp(1rem,   2.5vw, 1.6rem); top: 70%; right: 18%; transform: rotate(-6deg);  opacity: 0.7; }
-.d14 { font-size: clamp(1rem,   2.5vw, 1.6rem); top: 75%; left: 28%;  transform: rotate(11deg);  opacity: 0.65; }
+.d14 { font-size: clamp(1rem,   2.5vw, 1.6rem); top: 75%; left: 28%;  transform: rotate(11deg);  opacity: 0.8; }
 .d15 { font-size: clamp(1.2rem, 3.2vw, 2rem);   top: 78%; right: 2%;  transform: rotate(-4deg);  opacity: 0.8; }
 
 /* Bottom area */
-.d16 { font-size: clamp(2rem,   5.5vw, 3.8rem); bottom: 18%; left: 5%;   transform: rotate(-9deg);  opacity: 0.5; }
+.d16 { font-size: clamp(2rem,   5.5vw, 3.8rem); bottom: 18%; left: 5%;   transform: rotate(-9deg);  opacity: 0.8; }
 .d17 { font-size: clamp(1rem,   2.5vw, 1.6rem); bottom: 16%; left: 52%;  transform: rotate(7deg);   opacity: 0.7; }
 .d18 { font-size: clamp(1.4rem, 4vw,   2.4rem); bottom: 10%; right: 10%; transform: rotate(-5deg);  opacity: 0.85; }
 .d19 { font-size: clamp(1rem,   2.5vw, 1.6rem); bottom: 8%;  left: 20%;  transform: rotate(3deg);   opacity: 0.65; }
