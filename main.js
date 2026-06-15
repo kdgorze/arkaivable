@@ -88,24 +88,70 @@ document.addEventListener('keydown', e => {
 
 const sendBtn  = document.getElementById('sendBtn');
 const formNote = document.getElementById('formNote');
+const ctypeSelect = document.getElementById('ctype-select');
 
-sendBtn?.addEventListener('click', () => {
-  const name  = document.getElementById('name')?.value.trim();
-  const email = document.getElementById('email')?.value.trim();
-  const idea  = document.getElementById('idea')?.value.trim();
+// Clicking a type pill sets the dropdown to match
+document.querySelectorAll('.ctype').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const val = btn.dataset.type;
+    if (ctypeSelect) ctypeSelect.value = val;
+    document.querySelectorAll('.ctype').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Keep pills in sync if dropdown changes
+ctypeSelect?.addEventListener('change', () => {
+  const val = ctypeSelect.value;
+  document.querySelectorAll('.ctype').forEach(b => {
+    b.classList.toggle('active', b.dataset.type === val);
+  });
+});
+
+sendBtn?.addEventListener('click', async () => {
+  const name     = document.getElementById('name')?.value.trim();
+  const email    = document.getElementById('email')?.value.trim();
+  const type     = ctypeSelect?.value || '';
+  const idea     = document.getElementById('idea')?.value.trim();
+  const typeLabel = ctypeSelect?.options[ctypeSelect.selectedIndex]?.text || type;
 
   if (!name || !email || !idea) {
-    formNote.textContent = 'Fill in all three fields first.';
+    formNote.textContent = 'Fill in all fields first.';
     return;
   }
 
-  // ── Replace the mailto line below with your actual back-end or
-  //    a service like Formspree (https://formspree.io) ──────────
-  const subject = encodeURIComponent(`Commission inquiry from ${name}`);
-  const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${idea}`);
-  window.location.href = `mailto:your@email.com?subject=${subject}&body=${body}`;
+  sendBtn.disabled = true;
+  formNote.textContent = 'Sending…';
 
-  formNote.textContent = 'Opening your mail app…';
+  try {
+    const res = await fetch('https://formspree.io/f/mzdqyqoe', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        commission_type: typeLabel,
+        message: idea
+      })
+    });
+
+    if (res.ok) {
+      formNote.textContent = '✓ Message sent — I\'ll get back to you soon.';
+      // Clear fields
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('idea').value = '';
+      if (ctypeSelect) ctypeSelect.value = '';
+      document.querySelectorAll('.ctype').forEach(b => b.classList.remove('active'));
+    } else {
+      const data = await res.json();
+      formNote.textContent = data?.errors?.[0]?.message || 'Something went wrong — try emailing directly.';
+    }
+  } catch (err) {
+    formNote.textContent = 'Network error — try emailing ggg@gmail.com directly.';
+  } finally {
+    sendBtn.disabled = false;
+  }
 });
 
 // ── Graceful image fallback ──────────────────────────────────
