@@ -2,6 +2,10 @@
    ARTIST PORTFOLIO — main.js
    ============================================================ */
 
+// Footer year
+const yearEl = document.getElementById('footerYear');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
 // ── Page navigation ──────────────────────────────────────────
 
 const pages = document.querySelectorAll('.page');

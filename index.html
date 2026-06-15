@@ -3,34 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name — Abstract Art</title>
+  <title>THE ARKAIVES</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Permanent+Marker&family=Sacramento&family=Satisfy&family=Special+Elite&family=Architects+Daughter&family=Covered+By+Your+Grace&family=Kalam:wght@300;400&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/favicon.png" /> 
   <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
 
   <!-- Canvas texture overlay -->
   <div class="canvas-bg"></div>
 
+
+  <!-- Scattered handwritten doodles -->
+  <div class="doodles" aria-hidden="true">
+    <span class="doodle d1">the arkaives</span>
+    <span class="doodle d2">balance</span>
+    <span class="doodle d3">peace</span>
+    <span class="doodle d4">perfection</span>
+    <span class="doodle d5">the arKAIves</span>
+    <span class="doodle d22">diverse</span>
+    <span class="doodle d23">growth</span>
+    <span class="doodle d6">effort</span>
+    <span class="doodle d7">intuition</span>
+    <span class="doodle d8">k@!</span>
+    <span class="doodle d9">raw</span>
+    <span class="doodle d10">the arkaives</span>
+    <span class="doodle d11">adaptation</span>
+    <span class="doodle d12">flow</span>
+    <span class="doodle d13">depth</span>
+    <span class="doodle d14">the arkaives</span>
+    <span class="doodle d15">intention</span>
+    <span class="doodle d16">creative</span>
+    <span class="doodle d17">tension</span>
+    <span class="doodle d18">the arkaives</span>
+    <span class="doodle d19">breathe</span>
+    <span class="doodle d20">release</span>
+    <span class="doodle d21">positivity</span>
+  </div>
+
   <!-- ===== LANDING / HERO ===== -->
   <section id="home" class="page active">
     <div class="hero-content">
       <div class="artist-name-block">
-        <h1 class="artist-name">Your Name</h1>
-        <p class="tagline">Abstract Art</p>
+        <h1 class="artist-name">hi, i'm kai </h1>
+        <p class="tagline">i dabble.</p>
       </div>
 
       <!-- Nav "buttons" are image placeholders — swap with your art images -->
       <nav class="image-nav">
         <button class="nav-card" data-target="gallery" aria-label="Go to Gallery">
-          <img src="images/nav/nav-gallery.png" alt="Gallery" class="nav-img" />
-          <span class="nav-label">Gallery</span>
+          <img src="images/gallery.jpg" alt="Gallery" class="nav-img" />
+          <span class="nav-label">My Gallery</span>
         </button>
         <button class="nav-card" data-target="about" aria-label="Go to About">
-          <img src="images/nav/nav-about.png" alt="About" class="nav-img" />
-          <span class="nav-label">About</span>
+          <img src="images/aboutme.jpg" alt="About" class="nav-img" />
+          <span class="nav-label">About Me</span>
         </button>
         <button class="nav-card" data-target="commissions" aria-label="Go to Commissions">
-          <img src="images/nav/nav-commissions.png" alt="Commissions" class="nav-img" />
+          <img src="images/commissions.jpg" alt="Commissions" class="nav-img" />
           <span class="nav-label">Commissions</span>
         </button>
       </nav>
@@ -77,7 +111,7 @@
   <section id="about" class="page">
     <div class="page-inner about-layout">
       <button class="back-btn" data-target="home">← Back</button>
-      <h2 class="page-title">About</h2>
+      <h2 class="page-title">About Kai</h2>
 
       <div class="about-content">
         <div class="about-img-wrap">
@@ -104,50 +138,83 @@
 
   <!-- ===== COMMISSIONS / CONTACT ===== -->
   <section id="commissions" class="page">
-    <div class="page-inner">
-      <button class="back-btn" data-target="home">← Back</button>
-      <h2 class="page-title">Commissions</h2>
+  <div class="page-inner">
+    <button class="back-btn" data-target="home">← Back</button>
+    <h2 class="page-title">Commissions</h2>
 
-      <div class="commissions-content">
-        <div class="commission-info">
-          <p class="commission-intro">
-            Interested in a custom piece? I take on a limited number of commissions
-            — reach out and let's talk about what you're envisioning.
-          </p>
+    <div class="commissions-content">
 
-          <ul class="commission-details">
-            <li><span class="detail-label">Turnaround</span> 2–4 weeks depending on size</li>
-            <li><span class="detail-label">Sizes</span> Small to large — ask and we'll figure it out</li>
-            <li><span class="detail-label">Process</span> Deposit upfront, balance on completion</li>
-          </ul>
+      <!-- LEFT SIDE INFO -->
+      <div class="commission-info">
+
+        <p class="commission-intro">
+          I take on a limited number of commissions at a time. If you’re here, you probably already have an idea — let’s build it.
+        </p>
+
+        <h3 class="sub-heading">What I create</h3>
+
+        <div class="commission-tags">
+          <span>Clothing Designs</span>
+          <span>Murals</span>
+          <span>Custom Art Pieces</span>
+          <span>Tattoo Concepts</span>
+          <span>Logos / Identity Work</span>
         </div>
 
-        <div class="contact-form-wrap">
-          <h3 class="form-heading">Get in touch</h3>
+        <h3 class="sub-heading">Process</h3>
+        <ul class="commission-details">
+          <li><span class="detail-label">Step 1</span> You send your idea</li>
+          <li><span class="detail-label">Step 2</span> I respond with concept + price range</li>
+          <li><span class="detail-label">Step 3</span> Deposit locks it in</li>
+          <li><span class="detail-label">Step 4</span> Creation + updates</li>
+        </ul>
 
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Your name" />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="your@email.com" />
-          </div>
-          <div class="form-group">
-            <label for="idea">Tell me about your idea</label>
-            <textarea id="idea" rows="5" placeholder="Size, mood, colors, anything..."></textarea>
-          </div>
+        <!-- CONTACT CARDS -->
+        <div class="contact-cards">
 
-          <!-- This btn uses your image as the send button -->
-          <button class="send-btn image-send-btn" id="sendBtn">
-            <img src="images/nav/nav-send.png" alt="" class="send-btn-img" aria-hidden="true" />
-            <span>Send it</span>
-          </button>
-          <p class="form-note" id="formNote" aria-live="polite"></p>
+          <a href="https://instagram.com/YOURHANDLE" target="_blank" class="contact-card">
+            <div class="contact-title">Instagram</div>
+            <div class="contact-value">@YOURHANDLE</div>
+          </a>
+
+          <a href="mailto:youremail@gmail.com" class="contact-card">
+            <div class="contact-title">Email</div>
+            <div class="contact-value">youremail@gmail.com</div>
+          </a>
+
         </div>
       </div>
+
+      <!-- RIGHT SIDE FORM -->
+      <div class="contact-form-wrap">
+        <h3 class="form-heading">Request a commission</h3>
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your name" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="idea">What are you thinking?</label>
+          <textarea id="idea" rows="6" placeholder="Clothing, mural, tattoo idea, style, references..."></textarea>
+        </div>
+
+        <button class="send-btn image-send-btn" id="sendBtn">
+          <img src="images/nav/nav-send.png" alt="" class="send-btn-img" aria-hidden="true" />
+          <span>Send it</span>
+        </button>
+
+        <p class="form-note" id="formNote" aria-live="polite"></p>
+      </div>
+
+       </div>
     </div>
-  </section>
+    </section>
 
   <!-- Lightbox for gallery -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer">
@@ -155,6 +222,13 @@
     <img src="" alt="" id="lightboxImg" />
     <p class="lightbox-caption" id="lightboxCaption"></p>
   </div>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <span class="footer-sig">the arkaives</span>
+    <span class="footer-copy">&copy; <span id="footerYear"></span> the arkaives. all rights reserved.</span>
+  </footer>
 
   <script src="main.js"></script>
 </body>
